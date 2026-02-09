@@ -6,18 +6,5 @@
     "name": "Brad Williams",
     "email": "brad.williams@nib.com.au"
   },
-  "homepage": "https://github.com/BeadW/silicon-valley-claude",
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "bash",
-            "file": "hooks/inject-persona.sh"
-          }
-        ]
-      }
-    ]
-  }
+  "homepage": "https://github.com/BeadW/silicon-valley-claude"
 }

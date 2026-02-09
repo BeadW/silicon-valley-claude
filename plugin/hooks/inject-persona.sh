@@ -9,9 +9,14 @@
 
 set -euo pipefail
 
-# Get the directory where this script lives
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
+# Get plugin root - use CLAUDE_PLUGIN_ROOT if available (when run as plugin)
+# Otherwise fall back to script directory detection (for manual testing)
+if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ]; then
+    PLUGIN_ROOT="$CLAUDE_PLUGIN_ROOT"
+else
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
+fi
 PERSONAS_DIR="$PLUGIN_ROOT/personas"
 
 # Source helper libraries
