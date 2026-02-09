@@ -14,7 +14,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/bin/bash hooks/inject-persona.sh"
+            "command": "bash $PLUGIN_DIR/hooks/inject-persona.sh"
           }
         ]
       }
