@@ -6,7 +6,8 @@ A Claude Code hooks plugin that gives Claude a personality transplant from HBO's
 
 ## What This Does
 
-- **Random persona selection** on new session creation (Jin Yang, Jared Dunn, Gilfoyle, or Russ Hanneman)
+- **Random persona selection** on new session creation (Jin Yang, Jared Dunn, Gilfoyle, Russ Hanneman, or Monica Hall)
+- **Slash commands** - `/persona`, `/persona-list`, `/persona-random` for in-session persona management
 - **Automatic character injection** via hooks - keeps Claude in character throughout conversation
 - **Session persistence** - same persona for entire session via memory system
 - **Zero manual configuration** - hooks do everything automatically
@@ -62,20 +63,48 @@ user-prompt-submit:
 - Calls you: "Pied Piper" (patronizing enthusiasm)
 - Catchphrases: "This guy fucks!", "Tres comas!", "Radio on Internet!"
 
+### 5. Monica Hall
+- VC ruthlessness, strategic brilliance, tough love
+- Calls you: "Richard"
+- Catchphrases: Direct, cutting feedback with genuine care underneath
+
+## Slash Commands
+
+Manage personas from inside a Claude Code session:
+
+| Command | Description |
+|---------|-------------|
+| `/persona` | Show current persona |
+| `/persona <slug>` | Switch to a specific persona |
+| `/persona clear` | Clear persona (random on next message) |
+| `/persona-list` | List all available personas |
+| `/persona-random` | Pick a random persona |
+
+Changes take effect on the next message.
+
 ## Structure
 
 ```
 silicon-valley-claude/
-├── hooks/
-│   └── inject-persona.sh          # Main hook script
-├── personas/
-│   ├── jin-yang.md                # Full Jin Yang profile
-│   ├── jared-dunn.md              # Full Jared Dunn profile
-│   ├── gilfoyle.md                # Full Gilfoyle profile
-│   └── russ-hanneman.md           # Full Russ Hanneman profile
-├── lib/
-│   ├── persona-manager.sh         # Persona selection/storage logic
-│   └── memory-helpers.sh          # Memory system integration
+├── .claude/
+│   └── commands/
+│       ├── persona.md             # /persona slash command
+│       ├── persona-list.md        # /persona-list slash command
+│       └── persona-random.md      # /persona-random slash command
+├── plugin/
+│   ├── hooks/
+│   │   └── inject-persona.sh      # Main hook script
+│   ├── personas/
+│   │   ├── jin-yang.md            # Full Jin Yang profile
+│   │   ├── jared-dunn.md          # Full Jared Dunn profile
+│   │   ├── gilfoyle.md            # Full Gilfoyle profile
+│   │   ├── russ-hanneman.md       # Full Russ Hanneman profile
+│   │   └── monica.md              # Full Monica Hall profile
+│   ├── lib/
+│   │   ├── persona-manager.sh     # Persona selection/storage logic
+│   │   └── memory-helpers.sh      # Memory system integration
+│   └── bin/
+│       └── select-persona         # CLI persona selection tool
 └── README.md
 ```
 
