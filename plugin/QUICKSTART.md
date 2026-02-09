@@ -6,7 +6,7 @@ Get Silicon Valley Claude running in 2 minutes.
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/silicon-valley-claude.git ~/Code/silicon-valley-claude
+git clone https://github.com/BeadW/silicon-valley-claude.git ~/Code/silicon-valley-claude
 
 # Run installer
 cd ~/Code/silicon-valley-claude

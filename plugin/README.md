@@ -15,7 +15,7 @@ A Claude Code hooks plugin that gives Claude a personality transplant from HBO's
 
 1. Clone this repo:
 ```bash
-git clone https://github.com/YOUR_USERNAME/silicon-valley-claude.git ~/Code/silicon-valley-claude
+git clone https://github.com/BeadW/silicon-valley-claude.git ~/Code/silicon-valley-claude
 ```
 
 2. Add to your Claude Code hooks configuration (`~/.claude/config/hooks.yaml`):
