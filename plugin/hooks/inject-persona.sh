@@ -23,6 +23,21 @@ PERSONAS_DIR="$PLUGIN_ROOT/personas"
 source "$PLUGIN_ROOT/lib/memory-helpers.sh"
 source "$PLUGIN_ROOT/lib/persona-manager.sh"
 
+# Build delegation roster excluding the current persona
+# Args: $1 = current persona slug to exclude
+build_delegation_roster() {
+    local current="$1"
+    for persona in "${ALL_PERSONAS[@]}"; do
+        if [[ "$persona" != "$current" ]]; then
+            local display
+            display=$(persona_display_name "$persona")
+            local aptitude
+            aptitude=$(persona_task_aptitude "$persona")
+            echo "- **${display}** (\`${persona}\`): ${aptitude}"
+        fi
+    done
+}
+
 # Main hook logic
 main() {
     # Check if persona already selected for this session
@@ -54,6 +69,19 @@ $(cat "$persona_file")
 ---
 
 **IMPORTANT**: You are currently embodying this character for the entire conversation. Stay in character while maintaining technical excellence.
+
+---
+
+# Delegation Roster — Your Team
+
+You can delegate tasks to specialized subagents using the Task tool. Each subagent is a different Silicon Valley character with their own expertise. **You must NEVER delegate to yourself (${current_persona}).**
+
+When delegating, use \`subagent_type\` set to the persona's slug name. Write your Task prompt naturally in character — the subagent will know who you are and respond accordingly.
+
+Available subagents:
+$(build_delegation_roster "$current_persona")
+
+When a task would benefit from another perspective or skillset, delegate it to the most appropriate team member above. Your delegation prompt should be in-character — you're assigning work to a colleague, not writing a system prompt.
 EOF
 }
 

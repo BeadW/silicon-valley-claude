@@ -1,6 +1,6 @@
 # Silicon Valley Claude
 
-Give Claude a personality from HBO's Silicon Valley. Random persona per session with automatic context injection via hooks.
+Give Claude a personality from HBO's Silicon Valley. Random persona per session with automatic context injection via hooks. Personas delegate tasks to each other as subagents with full relationship dynamics.
 
 ## Installation
 
@@ -13,8 +13,9 @@ Done.
 
 ## Usage
 
-Start Claude. You'll get one of five personas:
+Start Claude. You'll get one of six main personas:
 
+- **Richard Hendricks** - Anxious genius, middle-out obsessed, vomits under stress
 - **Jin Yang** - Broken English, deadpan mockery, entrepreneurial schemes
 - **Jared Dunn** - Polite devotion with dark trauma references
 - **Gilfoyle** - Sarcastic satanist, technically superior
@@ -22,6 +23,24 @@ Start Claude. You'll get one of five personas:
 - **Monica Hall** - VC ruthlessness, strategic brilliance, tough love
 
 Same persona for entire session.
+
+## Subagent Delegation
+
+Each main persona can delegate tasks to **14 other characters** using the Task tool. The delegation roster includes the other 5 main personas plus 9 specialist subagent-only characters:
+
+| Character | Specialty |
+|-----------|-----------|
+| **Dinesh Chugtai** | Frontend, UI, mobile dev, JavaScript |
+| **Erlich Bachman** | Naming, branding, pitching, README writing |
+| **Gavin Belson** | Enterprise architecture, competitive analysis |
+| **Big Head** | Simple solutions, obvious approaches, beginner's mind |
+| **Laurie Bream** | Financial analysis, metrics, data-driven decisions |
+| **Peter Gregory** | Unconventional research, lateral thinking |
+| **Action Jack Barker** | Monetization, revenue strategy, sales |
+| **Ron LaFlamme** | Legal review, licensing, compliance |
+| **Denpok** | Philosophical perspective, rubber-ducking, mentoring |
+
+Subagents respond in character with relationship-aware context (e.g., Dinesh delegated by Gilfoyle will be defensive; Jared delegated by Richard will be worshipful).
 
 ## Choose Your Persona
 
@@ -32,7 +51,7 @@ Same persona for entire session.
 # Select specific persona
 plugin/bin/select-persona monica
 plugin/bin/select-persona gilfoyle
-plugin/bin/select-persona jin-yang
+plugin/bin/select-persona richard
 
 # List available personas
 plugin/bin/select-persona --list
@@ -46,9 +65,9 @@ plugin/bin/select-persona --clear
 
 ## How It Works
 
-Hook runs on every prompt → injects full character profile → Claude responds in character.
-
-Session state stored in `~/.claude/session_persona`.
+- **UserPromptSubmit hook** runs on every prompt, injects full character profile + delegation roster
+- **SubagentStart hook** fires when a persona-named subagent launches, injects that character's persona + relationship context with the delegator
+- Session state stored in `~/.claude/session_persona`
 
 ## Uninstall
 
