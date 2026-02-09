@@ -13,8 +13,8 @@
         "matcher": "*",
         "hooks": [
           {
-            "type": "command",
-            "command": "sh -c '$PLUGIN_DIR/hooks/inject-persona.sh'"
+            "type": "bash",
+            "file": "hooks/inject-persona.sh"
           }
         ]
       }
