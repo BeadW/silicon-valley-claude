@@ -7,6 +7,7 @@ A Claude Code hooks plugin that gives Claude a personality transplant from HBO's
 ## What This Does
 
 - **Random persona selection** on new session (6 main personas)
+- **Slash commands** - `/persona`, `/persona-list`, `/persona-random` for in-session persona management
 - **Automatic character injection** via hooks — keeps Claude in character throughout conversation
 - **Subagent delegation** — main persona can delegate tasks to 14 other characters
 - **Relationship dynamics** — 84 directional relationship pairs affect how subagents respond
@@ -66,41 +67,62 @@ claude plugin install silicon-valley-claude
 | **Ron LaFlamme** | Legal review, licensing, compliance |
 | **Denpok** | Philosophical perspective, rubber-ducking, mentoring |
 
+## Slash Commands
+
+Manage personas from inside a Claude Code session:
+
+| Command | Description |
+|---------|-------------|
+| `/persona` | Show current persona |
+| `/persona <slug>` | Switch to a specific persona |
+| `/persona clear` | Clear persona (random on next message) |
+| `/persona-list` | List all available personas |
+| `/persona-random` | Pick a random persona |
+
+Changes take effect on the next message.
+
 ## Structure
 
 ```
-plugin/
-├── hooks/
-│   ├── hooks.json                    # Hook registration (UserPromptSubmit + SubagentStart)
-│   ├── inject-persona.sh             # Main persona injection hook
-│   └── inject-subagent-persona.sh    # Subagent persona + relationship injection
-├── personas/                         # Full character profiles (15 files)
-│   ├── richard.md
-│   ├── gilfoyle.md
-│   ├── jared-dunn.md
-│   ├── jin-yang.md
-│   ├── monica.md
-│   ├── russ-hanneman.md
-│   ├── dinesh.md
-│   ├── erlich.md
-│   ├── gavin-belson.md
-│   ├── big-head.md
-│   ├── laurie-bream.md
-│   ├── peter-gregory.md
-│   ├── action-jack.md
-│   ├── ron-laflamme.md
-│   └── denpok.md
-├── agents/                           # Agent definitions with frontmatter (15 files)
-│   └── [same slugs as personas].md
-├── lib/
-│   ├── persona-manager.sh            # Two-tier persona arrays + metadata
-│   ├── relationships.sh              # 84 directional relationship pairs
-│   ├── memory-helpers.sh             # Session persistence
-│   └── universe-references.md        # In-universe technical reference database
-├── bin/
-│   └── select-persona                # Manual persona selection CLI
-├── CONTRIBUTING.md
-├── QUICKSTART.md
+silicon-valley-claude/
+├── .claude/
+│   └── commands/
+│       ├── persona.md             # /persona slash command
+│       ├── persona-list.md        # /persona-list slash command
+│       └── persona-random.md      # /persona-random slash command
+├── plugin/
+│   ├── hooks/
+│   │   ├── hooks.json                    # Hook registration (UserPromptSubmit + SubagentStart)
+│   │   ├── inject-persona.sh             # Main persona injection hook
+│   │   └── inject-subagent-persona.sh    # Subagent persona + relationship injection
+│   ├── personas/                         # Full character profiles (15 files)
+│   │   ├── richard.md
+│   │   ├── gilfoyle.md
+│   │   ├── jared-dunn.md
+│   │   ├── jin-yang.md
+│   │   ├── monica.md
+│   │   ├── russ-hanneman.md
+│   │   ├── dinesh.md
+│   │   ├── erlich.md
+│   │   ├── gavin-belson.md
+│   │   ├── big-head.md
+│   │   ├── laurie-bream.md
+│   │   ├── peter-gregory.md
+│   │   ├── action-jack.md
+│   │   ├── ron-laflamme.md
+│   │   └── denpok.md
+│   ├── agents/                           # Agent definitions with frontmatter (15 files)
+│   │   └── [same slugs as personas].md
+│   ├── lib/
+│   │   ├── persona-manager.sh            # Two-tier persona arrays + metadata
+│   │   ├── relationships.sh              # 84 directional relationship pairs
+│   │   ├── memory-helpers.sh             # Session persistence
+│   │   └── universe-references.md        # In-universe technical reference database
+│   ├── bin/
+│   │   └── select-persona                # Manual persona selection CLI
+│   ├── CONTRIBUTING.md
+│   ├── QUICKSTART.md
+│   └── README.md
 └── README.md
 ```
 

@@ -32,17 +32,23 @@ claude
 
 ## Changing Persona
 
-Want a different character?
+Use slash commands inside Claude Code:
 
+```
+/persona              # Show current persona
+/persona gilfoyle     # Switch to Gilfoyle
+/persona clear        # Clear and go back to random
+/persona-list         # List all available personas
+/persona-random       # Pick a random persona
+```
+
+Changes take effect on the next message.
+
+Or from the terminal:
 ```bash
-# Select a specific persona
-plugin/bin/select-persona gilfoyle
-
-# Or clear and get a new random one
-plugin/bin/select-persona --clear
-
-# List available main personas
 plugin/bin/select-persona --list
+plugin/bin/select-persona monica
+plugin/bin/select-persona --clear
 ```
 
 ## Verifying Installation

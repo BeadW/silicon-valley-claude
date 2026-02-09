@@ -44,22 +44,21 @@ Subagents respond in character with relationship-aware context (e.g., Dinesh del
 
 ## Choose Your Persona
 
-**Random (default)**: Just start Claude - system picks randomly
+**Random (default)**: Just start Claude - system picks randomly.
 
-**Manual selection**:
+**Slash commands** (inside Claude Code):
+```
+/persona              # Show current persona
+/persona gilfoyle     # Switch to Gilfoyle
+/persona clear        # Clear and go back to random
+/persona-list         # List all available personas
+/persona-random       # Pick a random persona
+```
+
+**CLI** (outside Claude Code):
 ```bash
-# Select specific persona
 plugin/bin/select-persona monica
-plugin/bin/select-persona gilfoyle
-plugin/bin/select-persona richard
-
-# List available personas
 plugin/bin/select-persona --list
-
-# See current persona
-plugin/bin/select-persona --current
-
-# Clear and go back to random
 plugin/bin/select-persona --clear
 ```
 
