@@ -1,10 +1,17 @@
 {
   "name": "silicon-valley-claude",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Give Claude a Silicon Valley personality - random persona selection with session persistence",
   "author": {
     "name": "Brad Williams",
     "email": "brad.williams@nib.com.au"
   },
-  "homepage": "https://github.com/BeadW/silicon-valley-claude"
+  "homepage": "https://github.com/BeadW/silicon-valley-claude",
+  "skills": [
+    {
+      "name": "persona",
+      "description": "Manage Silicon Valley persona selection (list, set, random, clear)",
+      "path": "skills/persona.md"
+    }
+  ]
 }

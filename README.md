@@ -27,7 +27,17 @@ Same persona for entire session.
 
 **Random (default)**: Just start Claude - system picks randomly
 
-**Manual selection**:
+**Slash commands** (easiest):
+```
+/persona list          # Show all personas
+/persona set monica    # Switch to Monica
+/persona set gilfoyle  # Switch to Gilfoyle
+/persona random        # Random selection
+/persona clear         # Reset to random
+/persona current       # Show current
+```
+
+**Manual selection** (if slash commands don't work):
 ```bash
 # Select specific persona
 plugin/bin/select-persona monica
