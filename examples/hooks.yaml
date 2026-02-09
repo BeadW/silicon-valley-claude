@@ -1,0 +1,11 @@
+# Example Claude Code hooks configuration
+# Copy this to ~/.claude/config/hooks.yaml or run install.sh
+
+user-prompt-submit:
+  - command: ~/Code/silicon-valley-claude/hooks/inject-persona.sh
+    description: "Inject Silicon Valley persona into context"
+
+# Optional: Add more hooks here
+# pre-run-command:
+#   - command: /path/to/other/hook.sh
+#     description: "Other hook description"

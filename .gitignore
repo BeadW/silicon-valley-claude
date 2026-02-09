@@ -1,0 +1,17 @@
+# Session state (user-specific)
+.session_persona
+
+# Backup files
+*.backup
+*.backup.*
+*.tmp
+
+# macOS
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
