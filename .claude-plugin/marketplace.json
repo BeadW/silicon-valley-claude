@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "silicon-valley-claude-local",
+  "description": "Local development marketplace for Silicon Valley Claude plugin",
+  "owner": {
+    "name": "Brad Williams",
+    "email": "brad.williams@nib.com.au"
+  },
+  "plugins": [
+    {
+      "name": "silicon-valley-claude",
+      "description": "Give Claude a Silicon Valley personality - random persona selection with session persistence. Includes Jin Yang, Jared Dunn, Gilfoyle, and Russ Hanneman.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Brad Williams",
+        "email": "brad.williams@nib.com.au"
+      },
+      "source": "./plugin",
+      "category": "fun",
+      "homepage": "https://github.com/YOUR_USERNAME/silicon-valley-claude"
+    }
+  ]
+}
