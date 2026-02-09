@@ -11,6 +11,18 @@
           }
         ]
       }
+    ],
+    "SubagentStart": [
+      {
+        "matcher": "gilfoyle|jared-dunn|jin-yang|monica|russ-hanneman|richard|dinesh|erlich|gavin-belson|big-head|laurie-bream|peter-gregory|action-jack|ron-laflamme|denpok",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/inject-subagent-persona.sh",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

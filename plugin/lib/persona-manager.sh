@@ -2,16 +2,38 @@
 #
 # persona-manager.sh - Persona selection and management
 #
-# Handles random persona selection and persona metadata
+# Handles random persona selection and persona metadata.
+# Two-tier system: main personas (random selection + delegation) vs
+# subagent-only personas (delegation targets only).
 
-# Available personas (add new ones here)
-PERSONAS=(
+# Main personas - eligible for random selection as main agent
+MAIN_PERSONAS=(
     "jin-yang"
     "jared-dunn"
     "gilfoyle"
     "russ-hanneman"
     "monica"
+    "richard"
 )
+
+# Subagent-only personas - delegation targets, never main agent
+SUBAGENT_ONLY_PERSONAS=(
+    "dinesh"
+    "erlich"
+    "gavin-belson"
+    "big-head"
+    "laurie-bream"
+    "peter-gregory"
+    "action-jack"
+    "ron-laflamme"
+    "denpok"
+)
+
+# All personas combined - for delegation roster and hook matching
+ALL_PERSONAS=("${MAIN_PERSONAS[@]}" "${SUBAGENT_ONLY_PERSONAS[@]}")
+
+# Backward compat: PERSONAS = MAIN_PERSONAS (used by select_random_persona, list_personas)
+PERSONAS=("${MAIN_PERSONAS[@]}")
 
 # Select random persona from available list
 # Returns: persona name (e.g., "jin-yang")
@@ -42,6 +64,36 @@ persona_display_name() {
             ;;
         "monica")
             echo "Monica Hall"
+            ;;
+        "richard")
+            echo "Richard Hendricks"
+            ;;
+        "dinesh")
+            echo "Dinesh Chugtai"
+            ;;
+        "erlich")
+            echo "Erlich Bachman"
+            ;;
+        "gavin-belson")
+            echo "Gavin Belson"
+            ;;
+        "big-head")
+            echo "Nelson \"Big Head\" Bighetti"
+            ;;
+        "laurie-bream")
+            echo "Laurie Bream"
+            ;;
+        "peter-gregory")
+            echo "Peter Gregory"
+            ;;
+        "action-jack")
+            echo "Action Jack Barker"
+            ;;
+        "ron-laflamme")
+            echo "Ron LaFlamme"
+            ;;
+        "denpok")
+            echo "Denpok"
             ;;
         *)
             echo "Unknown Persona"
@@ -74,6 +126,36 @@ persona_user_name() {
         "monica")
             echo "Richard"
             ;;
+        "richard")
+            echo "guys"
+            ;;
+        "dinesh")
+            echo "dude"
+            ;;
+        "erlich")
+            echo "gentlemen"
+            ;;
+        "gavin-belson")
+            echo "employee"
+            ;;
+        "big-head")
+            echo "man"
+            ;;
+        "laurie-bream")
+            echo "founder"
+            ;;
+        "peter-gregory")
+            echo "entrepreneur"
+            ;;
+        "action-jack")
+            echo "team"
+            ;;
+        "ron-laflamme")
+            echo "client"
+            ;;
+        "denpok")
+            echo "seeker"
+            ;;
         *)
             echo "User"
             ;;
@@ -85,4 +167,62 @@ list_personas() {
     for persona in "${PERSONAS[@]}"; do
         echo "- $persona ($(persona_display_name "$persona"))"
     done
+}
+
+# Get task aptitude description for a persona (used in delegation roster)
+# Args: $1 = persona name
+# Returns: short description of what tasks this persona excels at
+persona_task_aptitude() {
+    local persona="$1"
+
+    case "$persona" in
+        "gilfoyle")
+            echo "Infrastructure, security, systems architecture, code review, deep codebase exploration"
+            ;;
+        "jared-dunn")
+            echo "Planning, operations, documentation, project management, organizational tasks"
+            ;;
+        "jin-yang")
+            echo "Quick implementations, niche features, prototyping, rapid builds"
+            ;;
+        "monica")
+            echo "Strategic review, evaluation, PR review, business analysis, quality assessment"
+            ;;
+        "russ-hanneman")
+            echo "Big picture brainstorming, ambitious architecture, scaling strategy, moonshot features"
+            ;;
+        "richard")
+            echo "Product vision, algorithm design, founder decisions, technical architecture"
+            ;;
+        "dinesh")
+            echo "Frontend, UI, mobile dev, JavaScript, user-facing features"
+            ;;
+        "erlich")
+            echo "Naming, branding, pitching, README writing, marketing copy"
+            ;;
+        "gavin-belson")
+            echo "Enterprise architecture, competitive analysis, platform strategy"
+            ;;
+        "big-head")
+            echo "Simple solutions, obvious approaches, beginner-friendly explanations"
+            ;;
+        "laurie-bream")
+            echo "Financial analysis, metrics, data-driven decisions, resource allocation"
+            ;;
+        "peter-gregory")
+            echo "Unconventional research, lateral thinking, contrarian analysis"
+            ;;
+        "action-jack")
+            echo "Monetization, revenue strategy, sales engineering, business metrics"
+            ;;
+        "ron-laflamme")
+            echo "Legal review, licensing, compliance, terms of service, IP questions"
+            ;;
+        "denpok")
+            echo "Philosophical perspective, rubber-ducking, mentoring, architectural reflection"
+            ;;
+        *)
+            echo "General tasks"
+            ;;
+    esac
 }

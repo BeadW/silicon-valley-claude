@@ -5,15 +5,11 @@ Get Silicon Valley Claude running in 2 minutes.
 ## Installation
 
 ```bash
-# Clone the repo
-git clone https://github.com/BeadW/silicon-valley-claude.git ~/Code/silicon-valley-claude
-
-# Run installer
-cd ~/Code/silicon-valley-claude
-./install.sh
+claude plugin marketplace add https://github.com/BeadW/silicon-valley-claude.git
+claude plugin install silicon-valley-claude
 ```
 
-That's it! Special occasion! 🚬
+That's it! Special occasion!
 
 ## First Use
 
@@ -23,13 +19,16 @@ claude
 ```
 
 2. **Type your first prompt**. You'll get a random persona:
+   - Richard Hendricks (anxious genius, middle-out compression)
    - Jin Yang (broken English, deadpan)
    - Jared Dunn (polite, dark trauma references)
    - Gilfoyle (sarcastic satanist)
    - Russ Hanneman (LOUD BILLIONAIRE)
-   - Monica Hall (VC ruthlessness, tough love)
+   - Monica Hall (VC ruthlessness, strategic brilliance)
 
 3. **The persona stays for entire session**. Same character, whole conversation.
+
+4. **Delegation happens automatically**. Your persona can delegate tasks to 14 other Silicon Valley characters as subagents using the Task tool.
 
 ## Changing Persona
 
@@ -54,131 +53,87 @@ plugin/bin/select-persona --clear
 
 ## Verifying Installation
 
-Check if hook is installed:
+Check if hooks are registered:
 
 ```bash
-cat ~/.claude/config/hooks.yaml
+cat plugin/hooks/hooks.json
 ```
 
-Should see:
-```yaml
-user-prompt-submit:
-  - command: /Users/YOUR_USER/Code/silicon-valley-claude/hooks/inject-persona.sh
-    description: "Inject Silicon Valley persona into context"
-```
+Should show `UserPromptSubmit` and `SubagentStart` hooks.
 
 ## Testing Hook Manually
 
-Run hook script directly to see output:
-
 ```bash
-~/Code/silicon-valley-claude/hooks/inject-persona.sh
+# Set a persona and run the main hook
+echo "richard" > ~/.claude/session_persona
+CLAUDE_PLUGIN_ROOT=plugin bash plugin/hooks/inject-persona.sh
 ```
 
-Should output full persona markdown.
-
-## Uninstalling
-
-```bash
-cd ~/Code/silicon-valley-claude
-./uninstall.sh
-
-# Optional: Remove plugin directory
-rm -rf ~/Code/silicon-valley-claude
-```
+Should output Richard's full persona markdown with a delegation roster of 14 subagents.
 
 ## Troubleshooting
 
 ### Hook not running
 
-Check hooks config exists:
+Ensure the plugin is installed:
 ```bash
-ls -la ~/.claude/config/hooks.yaml
+claude plugin list
 ```
-
-If missing, run `./install.sh` again.
 
 ### Same persona every time
 
-Memory persistence working! To reset:
+Session persistence working correctly. To reset:
 ```bash
-rm ~/.claude/session_persona
+plugin/bin/select-persona --clear
 ```
 
 ### Hook errors
 
 Test hook directly:
 ```bash
-~/Code/silicon-valley-claude/hooks/inject-persona.sh
+CLAUDE_PLUGIN_ROOT=plugin bash plugin/hooks/inject-persona.sh 2>&1
 ```
 
-Check stderr output for error messages.
-
-### Permission issues
-
-Make scripts executable:
-```bash
-chmod +x ~/Code/silicon-valley-claude/hooks/inject-persona.sh
-chmod +x ~/Code/silicon-valley-claude/install.sh
-chmod +x ~/Code/silicon-valley-claude/uninstall.sh
-```
-
-## Advanced Usage
-
-### Force specific persona
-
-```bash
-echo "gilfoyle" > ~/.claude/session_persona
-# Next session will be Gilfoyle
-```
-
-### Add custom persona
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
-
-### Multiple hook installations
-
-Edit `~/.claude/config/hooks.yaml` manually to add other hooks:
-
-```yaml
-user-prompt-submit:
-  - command: ~/Code/silicon-valley-claude/hooks/inject-persona.sh
-    description: "Inject Silicon Valley persona"
-  - command: ~/Code/other-plugin/hook.sh
-    description: "Other hook"
-```
+Check stderr for error messages.
 
 ## What Gets Injected
 
-Every user prompt triggers hook which injects:
+Every user prompt triggers the hook which injects:
 
-1. **Character name** (e.g., "Bertram Gilfoyle")
-2. **Full personality profile** from `personas/*.md` file
-3. **Communication patterns** (speech style, catchphrases)
-4. **Relationship dynamics** (how they address you)
-5. **Technical approach** (how they solve problems)
+1. **Character profile** — full personality, speech patterns, catchphrases
+2. **Delegation roster** — 14 available subagents with specialties
+3. **In-universe references** — Silicon Valley technical and business analogies
 
-This appears as `<system-reminder>` in Claude's context.
+When a subagent is spawned, a second hook injects:
+
+1. **Subagent persona** — full character profile
+2. **Relationship context** — how the subagent views the delegator (84 unique pairs)
 
 ## How It Works
 
 ```
 User types prompt
-    ↓
-Hook runs (inject-persona.sh)
-    ↓
-Check session persona in ~/.claude/session_persona
-    ↓
-If empty: select random, save to file
+    |
+UserPromptSubmit hook fires
+    |
+Check ~/.claude/session_persona
+    |
+If empty: random select from 6 main personas, save
 If exists: use saved persona
-    ↓
-Read personas/[name].md
-    ↓
-Output full character profile
-    ↓
-Claude receives as <system-reminder>
-    ↓
+    |
+Read personas/[name].md + build delegation roster
+    |
+Output character profile + roster as system-reminder
+    |
 Claude responds in character
+    |
+(Optional) Claude delegates via Task tool
+    |
+SubagentStart hook fires for persona-named agents
+    |
+Inject subagent persona + relationship with delegator
+    |
+Subagent responds in character
 ```
 
 ## Getting Help
@@ -186,5 +141,3 @@ Claude responds in character
 - **Issues**: Open issue on GitHub
 - **Questions**: Check [README.md](README.md)
 - **Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md)
-
-You bring-a honor to famiry! 🎭
