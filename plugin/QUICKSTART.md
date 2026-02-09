@@ -27,20 +27,29 @@ claude
    - Jared Dunn (polite, dark trauma references)
    - Gilfoyle (sarcastic satanist)
    - Russ Hanneman (LOUD BILLIONAIRE)
+   - Monica Hall (VC ruthlessness, tough love)
 
 3. **The persona stays for entire session**. Same character, whole conversation.
 
 ## Changing Persona
 
-Want a different character?
+Use slash commands inside Claude Code:
 
+```
+/persona              # Show current persona
+/persona gilfoyle     # Switch to Gilfoyle
+/persona clear        # Clear and go back to random
+/persona-list         # List all available personas
+/persona-random       # Pick a random persona
+```
+
+Changes take effect on the next message.
+
+Or from the terminal:
 ```bash
-# Clear current persona
-rm ~/.claude/session_persona
-
-# Start new session
-claude
-# You'll get a new random persona
+plugin/bin/select-persona --list
+plugin/bin/select-persona monica
+plugin/bin/select-persona --clear
 ```
 
 ## Verifying Installation
