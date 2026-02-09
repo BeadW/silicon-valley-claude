@@ -42,3 +42,34 @@ clear_session_persona() {
         echo "✓ Cleared session persona" >&2
     fi
 }
+
+# Set specific persona (for manual selection)
+# Args: $1 = persona name (e.g., "monica")
+# Returns: 0 on success, 1 on invalid persona
+set_persona() {
+    local persona="$1"
+    local session_file="$HOME/.claude/session_persona"
+
+    # Source persona manager to validate persona exists
+    source "$(dirname "${BASH_SOURCE[0]}")/persona-manager.sh"
+
+    # Check if persona is valid
+    local valid=0
+    for p in "${PERSONAS[@]}"; do
+        if [[ "$p" == "$persona" ]]; then
+            valid=1
+            break
+        fi
+    done
+
+    if [[ $valid -eq 0 ]]; then
+        echo "❌ Invalid persona: $persona" >&2
+        echo "Available personas:" >&2
+        list_personas >&2
+        return 1
+    fi
+
+    echo "$persona" > "$session_file"
+    echo "✓ Set persona to: $(persona_display_name "$persona")" >&2
+    return 0
+}
