@@ -10,6 +10,7 @@ PERSONAS=(
     "jared-dunn"
     "gilfoyle"
     "russ-hanneman"
+    "monica"
 )
 
 # Select random persona from available list
@@ -39,6 +40,9 @@ persona_display_name() {
         "russ-hanneman")
             echo "Russ Hanneman"
             ;;
+        "monica")
+            echo "Monica Hall"
+            ;;
         *)
             echo "Unknown Persona"
             ;;
@@ -66,6 +70,9 @@ persona_user_name() {
             ;;
         "russ-hanneman")
             echo "Pied Piper"
+            ;;
+        "monica")
+            echo "Richard"
             ;;
         *)
             echo "User"

@@ -13,22 +13,36 @@ Done.
 
 ## Usage
 
-Start Claude. You'll get one of four personas:
+Start Claude. You'll get one of five personas:
 
-- **Jin Yang** - Broken English, deadpan mockery
+- **Jin Yang** - Broken English, deadpan mockery, entrepreneurial schemes
 - **Jared Dunn** - Polite devotion with dark trauma references
 - **Gilfoyle** - Sarcastic satanist, technically superior
 - **Russ Hanneman** - LOUD billionaire, tres commas energy
+- **Monica Hall** - VC ruthlessness, strategic brilliance, tough love
 
 Same persona for entire session.
 
-## Change Persona
+## Choose Your Persona
 
+**Random (default)**: Just start Claude - system picks randomly
+
+**Manual selection**:
 ```bash
-rm ~/.claude/session_persona
-```
+# Select specific persona
+plugin/bin/select-persona monica
+plugin/bin/select-persona gilfoyle
+plugin/bin/select-persona jin-yang
 
-Next session picks new random persona.
+# List available personas
+plugin/bin/select-persona --list
+
+# See current persona
+plugin/bin/select-persona --current
+
+# Clear and go back to random
+plugin/bin/select-persona --clear
+```
 
 ## How It Works
 

@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+#
+# select-persona - Manually select a Silicon Valley persona
+#
+# Usage:
+#   select-persona [persona-name]    # Set specific persona
+#   select-persona --list            # List available personas
+#   select-persona --random          # Select random persona
+#   select-persona --clear           # Clear current persona
+#   select-persona --current         # Show current persona
+
+set -euo pipefail
+
+# Get plugin root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Source helper libraries
+source "$PLUGIN_ROOT/lib/memory-helpers.sh"
+source "$PLUGIN_ROOT/lib/persona-manager.sh"
+
+# Show usage
+usage() {
+    cat << EOF
+Silicon Valley Claude - Persona Selection
+
+Usage:
+  select-persona [persona-name]    Set specific persona
+  select-persona --list            List available personas
+  select-persona --random          Select random persona
+  select-persona --clear           Clear current persona (will random select on next prompt)
+  select-persona --current         Show current persona
+
+Available Personas:
+$(list_personas)
+
+Examples:
+  select-persona monica            # Set Monica Hall as active persona
+  select-persona gilfoyle          # Set Gilfoyle as active persona
+  select-persona --random          # Let system choose randomly
+  select-persona --clear           # Reset and let next session be random
+EOF
+}
+
+# Show current persona
+show_current() {
+    local current
+    current=$(get_session_persona)
+
+    if [[ -z "$current" ]]; then
+        echo "No persona currently selected (will random select on next prompt)"
+    else
+        echo "Current persona: $(persona_display_name "$current") [$current]"
+    fi
+}
+
+# Main logic
+main() {
+    if [[ $# -eq 0 ]]; then
+        usage
+        exit 0
+    fi
+
+    case "$1" in
+        --list|-l)
+            echo "Available Personas:"
+            list_personas
+            echo ""
+            show_current
+            ;;
+        --random|-r)
+            local persona
+            persona=$(select_random_persona)
+            set_persona "$persona"
+            echo "Randomly selected: $(persona_display_name "$persona")"
+            ;;
+        --clear|-c)
+            clear_session_persona
+            echo "Persona cleared. Next conversation will random select."
+            ;;
+        --current)
+            show_current
+            ;;
+        --help|-h)
+            usage
+            ;;
+        *)
+            # Treat as persona name
+            set_persona "$1"
+            ;;
+    esac
+}
+
+main "$@"
