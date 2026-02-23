@@ -6,5 +6,19 @@
     "name": "Brad Williams",
     "email": "brad.williams@nib.com.au"
   },
-  "homepage": "https://github.com/BeadW/silicon-valley-claude"
+  "homepage": "https://github.com/BeadW/silicon-valley-claude",
+  "commands": {
+    "persona": {
+      "description": "Show or switch the active Silicon Valley persona",
+      "path": ".claude/commands/persona.md"
+    },
+    "persona-list": {
+      "description": "List all available Silicon Valley personas",
+      "path": ".claude/commands/persona-list.md"
+    },
+    "persona-random": {
+      "description": "Switch to a randomly selected Silicon Valley persona",
+      "path": ".claude/commands/persona-random.md"
+    }
+  }
 }
