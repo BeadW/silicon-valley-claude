@@ -10,7 +10,7 @@ description: Switch to a randomly selected Silicon Valley persona
 The user wants a randomly selected persona. Use the Bash tool to run:
 
 ```
-bash /Users/brad/Code/silicon-valley-claude/plugin/bin/select-persona --random
+bash "$(git rev-parse --show-toplevel)/plugin/bin/select-persona" --random
 ```
 
 Then report:
