@@ -52,7 +52,7 @@ set_persona() {
 
     # Check if persona is valid
     local valid=0
-    for p in "${PERSONAS[@]}"; do
+    for p in "${ALL_PERSONAS[@]}"; do
         if [[ "$p" == "$persona" ]]; then
             valid=1
             break

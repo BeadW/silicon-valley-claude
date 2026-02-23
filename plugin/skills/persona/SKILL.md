@@ -6,7 +6,7 @@ allowed-tools: Bash
 
 # Persona Management
 
-**Current persona**: `!cat $HOME/.claude/session_persona 2>/dev/null || echo "(none)"`
+**Current persona**: !`cat $HOME/.claude/session_persona_silicon_valley 2>/dev/null || echo "(none)"`
 
 The user wants to manage their active persona.
 
