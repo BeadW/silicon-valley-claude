@@ -10,7 +10,7 @@ description: Switch to a randomly selected Silicon Valley persona
 The user wants a randomly selected persona. Use the Bash tool to run:
 
 ```
-bash "$PLUGIN_DIR/bin/select-persona" --random
+bash "${CLAUDE_PLUGIN_ROOT}/bin/select-persona" --random
 ```
 
 Then report:
