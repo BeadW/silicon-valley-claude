@@ -85,12 +85,16 @@ Changes take effect on the next message.
 
 ```
 silicon-valley-claude/
-├── .claude/
-│   └── commands/
-│       ├── persona.md             # /persona slash command
-│       ├── persona-list.md        # /persona-list slash command
-│       └── persona-random.md      # /persona-random slash command
 ├── plugin/
+│   ├── .claude-plugin/
+│   │   └── plugin.json                   # Plugin manifest
+│   ├── skills/
+│   │   ├── persona/
+│   │   │   └── SKILL.md                  # /silicon-valley-claude:persona
+│   │   ├── persona-list/
+│   │   │   └── SKILL.md                  # /silicon-valley-claude:persona-list
+│   │   └── persona-random/
+│   │       └── SKILL.md                  # /silicon-valley-claude:persona-random
 │   ├── hooks/
 │   │   ├── hooks.json                    # Hook registration (UserPromptSubmit + SubagentStart)
 │   │   ├── inject-persona.sh             # Main persona injection hook
@@ -123,6 +127,7 @@ silicon-valley-claude/
 │   ├── CONTRIBUTING.md
 │   ├── QUICKSTART.md
 │   └── README.md
+├── LICENSE
 └── README.md
 ```
 
