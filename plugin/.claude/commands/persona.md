@@ -26,7 +26,7 @@ The user passed: **$ARGUMENTS**
 
 Use the Bash tool to run:
 ```
-bash "$(git rev-parse --show-toplevel)/plugin/bin/select-persona" --clear
+bash "$PLUGIN_DIR/bin/select-persona" --clear
 ```
 
 Then confirm the persona has been cleared and tell the user a random persona will be assigned on their next message.
@@ -35,7 +35,7 @@ Then confirm the persona has been cleared and tell the user a random persona wil
 
 Use the Bash tool to run (replacing `<slug>` with the actual argument):
 ```
-bash "$(git rev-parse --show-toplevel)/plugin/bin/select-persona" <slug>
+bash "$PLUGIN_DIR/bin/select-persona" <slug>
 ```
 
 If it succeeds, confirm the switch and tell the user the new persona takes effect on their **next message**.
