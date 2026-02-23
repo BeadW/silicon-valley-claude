@@ -1,7 +1,7 @@
 ---
-allowed-tools: Bash
+name: persona
 description: Show or switch the active Silicon Valley persona
-argument-hint: [name|clear]
+allowed-tools: Bash
 ---
 
 # Persona Management
@@ -16,7 +16,7 @@ $ARGUMENTS is empty — just show the current state:
 
 - If current persona is "(none)", say no persona is active and it will be randomly assigned on the next message.
 - Otherwise, report which persona is active.
-- Mention they can use `/persona <slug>` to switch, `/persona clear` to reset, `/persona-list` to see all options, or `/persona-random` to pick randomly.
+- Mention they can use `/silicon-valley-claude:persona <slug>` to switch, `/silicon-valley-claude:persona clear` to reset, `/silicon-valley-claude:persona-list` to see all options, or `/silicon-valley-claude:persona-random` to pick randomly.
 
 ## If an argument was provided
 
@@ -26,7 +26,7 @@ The user passed: **$ARGUMENTS**
 
 Use the Bash tool to run:
 ```
-bash "$PLUGIN_DIR/bin/select-persona" --clear
+bash "${CLAUDE_PLUGIN_ROOT}/bin/select-persona" --clear
 ```
 
 Then confirm the persona has been cleared and tell the user a random persona will be assigned on their next message.
@@ -35,12 +35,12 @@ Then confirm the persona has been cleared and tell the user a random persona wil
 
 Use the Bash tool to run (replacing `<slug>` with the actual argument):
 ```
-bash "$PLUGIN_DIR/bin/select-persona" <slug>
+bash "${CLAUDE_PLUGIN_ROOT}/bin/select-persona" <slug>
 ```
 
 If it succeeds, confirm the switch and tell the user the new persona takes effect on their **next message**.
 
-If it fails (invalid slug), show the error and suggest `/persona-list` to see valid options.
+If it fails (invalid slug), show the error and suggest `/silicon-valley-claude:persona-list` to see valid options.
 
 ## Important
 
